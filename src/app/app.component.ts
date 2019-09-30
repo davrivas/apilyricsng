@@ -8,14 +8,14 @@ import { Component, Input } from '@angular/core';
 export class AppComponent {
   @Input() artist: string;
   @Input() song: string;
-  title: string = 'Api Lyrics Ng';
-  url: string = 'https://api.lyrics.ovh/v1/'; // https://api.lyrics.ovh/v1/artist/title
+  readonly title: string = 'Api Lyrics Ng';
+  readonly url: string = 'https://api.lyrics.ovh/v1/'; // https://api.lyrics.ovh/v1/artist/title
   lyrics: string;
 
   searchForASong(): void {
     if (this.artist == null || this.song == null
       || this.artist.length === 0 || this.artist.length === 0) {
-        //
+        //url ='hola';
       }
   }
 }
