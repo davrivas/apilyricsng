@@ -15,7 +15,7 @@ export class AppComponent {
   searchForASong(): void {
     if (this.artist == null || this.song == null
       || this.artist.length === 0 || this.artist.length === 0) {
-        //url ='hola';
+        let request: string = `${this.url}/${this.artist}/${this.song}`;
       }
   }
 }
