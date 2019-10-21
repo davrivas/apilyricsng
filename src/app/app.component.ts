@@ -1,42 +1,38 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { ILyrics } from './lyrics';
+import { LyricsService } from './lyrics.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  artist: string;
-  song: string;
-  readonly title: string = 'Api Lyrics Ng';
-  readonly url: string = 'https://api.lyrics.ovh/v1/'; // https://api.lyrics.ovh/v1/artist/title
-  lyrics: string;
+    readonly title: string = 'Api Lyrics Ng';
+    artist: string;
+    song: string;
+    lyricsObj: ILyrics;
+    lyrics: string;
 
-  constructor(private client: HttpClient) { }
+    constructor(private lyricsService: LyricsService) { }
 
-  searchForASong(): void {
-    if (this.artist == null || this.song == null || this.artist.length === 0 || this.artist.length === 0) {
-      const request: string = `${this.url}/${this.artist}/${this.song}`;
-      this.client.get<any>(request).pipe(
-        tap(data => this.lyrics = data.lyrics),
-        catchError(this.handleError)
-      );
-    }
-  }
+    searchForASong(): void {
+        if (this.lyrics != null) this.lyrics = null;
 
-  private handleError(err: HttpErrorResponse) {
-    let errorMessage = '';
+        if (this.isNullOrWhitespace(this.artist) || this.isNullOrWhitespace(this.song)) {
+            this.lyricsObj = this.lyricsService.getLyrics(this.artist, this.song);
 
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+            if (this.lyricsObj == null) {
+                // TODO: complete this case
+            } else {
+                this.lyrics = this.lyricsObj.lyrics;
+            }
+        } else {
+            alert('You must provide an artist or song');
+        }
     }
 
-    this.lyrics = errorMessage;
-    return throwError(errorMessage);
-  }
+    private isNullOrWhitespace(str: string): boolean {
+        return str == null || str.trim().length === 0;
+    }
 }
