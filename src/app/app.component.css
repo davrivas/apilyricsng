@@ -1,8 +1,28 @@
+body {
+  margin: 25px !important;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+#apiForm {
+  margin-right: 15px;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
 }
+
+
 
 input, button {
   width: 200px;

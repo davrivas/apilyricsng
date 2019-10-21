@@ -1,38 +1,35 @@
-import { Component } from '@angular/core';
-import { ILyrics } from './lyrics';
+import { Component, Input } from '@angular/core';
 import { LyricsService } from './lyrics.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    readonly title: string = 'Api Lyrics Ng';
-    artist: string;
-    song: string;
-    lyricsObj: ILyrics;
-    lyrics: string;
+  readonly title: string = 'Api Lyrics Ng';
 
-    constructor(private lyricsService: LyricsService) { }
+  @Input() artist: string;
+  @Input() song: string;
+  lyrics: string;
 
-    searchForASong(): void {
-        if (this.lyrics != null) this.lyrics = null;
+  constructor(private lyricsService: LyricsService) { }
 
-        if (this.isNullOrWhitespace(this.artist) || this.isNullOrWhitespace(this.song)) {
-            this.lyricsObj = this.lyricsService.getLyrics(this.artist, this.song);
-
-            if (this.lyricsObj == null) {
-                // TODO: complete this case
-            } else {
-                this.lyrics = this.lyricsObj.lyrics;
-            }
-        } else {
-            alert('You must provide an artist or song');
+  searchForASong(): void {
+    if (!this.isNullOrWhitespace(this.artist) || !this.isNullOrWhitespace(this.song)) {
+      this.lyricsService.getLyrics(this.artist, this.song).subscribe(
+        result => this.lyrics = result.lyrics,
+        error =>  {
+          this.lyrics = null;
+          alert(error.message);
         }
+      );
+    } else {
+      alert('You must provide an artist or song');
     }
+  }
 
-    private isNullOrWhitespace(str: string): boolean {
-        return str == null || str.trim().length === 0;
-    }
+  private isNullOrWhitespace(str: string): boolean {
+    return str == null || str.trim().length === 0 || str === undefined;
+  }
 }
