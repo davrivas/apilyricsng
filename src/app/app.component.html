@@ -3,22 +3,22 @@
 Made with <a href="https://lyricsovh.docs.apiary.io">lyrics.ovh</a>
 
 <div class="row">
-    <div action="" id="apiForm">
-        <div class="form-group">
-            <label for="artist">Artist</label>
-            <input type="text" name="artist" id="artist" placeholder="Enter artist">
-        </div>
-        <div class="form-group">
-            <label for="song">Song</label>
-            <input type="text" name="song" id="song" placeholder="Enter song">
-        </div>
-        <button (click)='searchForASong()'>Search for a song</button>
-      </div>
+	<div id="apiForm">
+		<div class="form-group">
+			<label for="artist">Artist</label>
+			<input type="text" name="artist" id="artist" placeholder="Enter artist">
+		</div>
+		<div class="form-group">
+			<label for="song">Song</label>
+			<input type="text" name="song" id="song" placeholder="Enter song">
+		</div>
+		<button (click)='searchForASong()'>Search for a song</button>
+	</div>
 
-    <section>
-      <h2>{{artist}}</h2>
-      <h3>{{song}}</h3>
+	<section *ngIf='lyrics'>
+		<h2>{{artist}}</h2>
+		<h3>{{song}}</h3>
 
-      {{lyrics}}
-    </section>
+		{{lyrics}}
+	</section>
 </div>
