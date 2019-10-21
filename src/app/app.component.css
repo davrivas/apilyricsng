@@ -10,8 +10,11 @@ input, button {
 
 input {
   height: 20px;
+  border-radius: 3px;
 }
 
 button {
   height: 50px;
+  color: #0f0;
+  background-color: #000;
 }
