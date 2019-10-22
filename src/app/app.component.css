@@ -1,7 +1,3 @@
-body {
-  margin: 25px !important;
-}
-
 .row {
   display: flex;
   flex-direction: row;
@@ -26,6 +22,12 @@ body {
 
 input, button {
   width: 200px;
+  color: #0f0;
+  background-color: #000;
+}
+
+input::placeholder {
+  color: #fff;
 }
 
 input {
@@ -35,6 +37,4 @@ input {
 
 button {
   height: 50px;
-  color: #0f0;
-  background-color: #000;
 }
