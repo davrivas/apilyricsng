@@ -1,6 +1,6 @@
 <h1>Welcome to {{title}}!</h1>
 
-Made with <a href="https://lyricsovh.docs.apiary.io">lyrics.ovh</a>
+<p>Made with <a href="https://lyricsovh.docs.apiary.io">lyrics.ovh</a></p>
 
 <div class="row">
     <div id="apiForm" class="col">
@@ -20,7 +20,8 @@ Made with <a href="https://lyricsovh.docs.apiary.io">lyrics.ovh</a>
         </div>
     </div>
 
-    <section *ngIf='lyrics' class="col">
-        {{lyrics}}
+    <section class="col">
+        <div *ngIf='lyrics'>{{ lyrics }}</div>
+        <div *ngIf='error' class='error'>{{ error }}</div>
     </section>
 </div>

@@ -12,6 +12,7 @@ export class AppComponent {
     @Input() artist: string;
     @Input() song: string;
     lyrics: string;
+    error: string;
     isBusy: boolean;
 
     constructor(private lyricsService: LyricsService) {
@@ -22,10 +23,13 @@ export class AppComponent {
         if (!this.isNullWhitespaceOrUndefined(this.artist) || !this.isNullWhitespaceOrUndefined(this.song)) {
             this.isBusy = true;
             this.lyricsService.getLyrics(this.artist, this.song).subscribe(
-                result => this.lyrics = result.lyrics,
+                result => {
+                    this.error = undefined;
+                    this.lyrics = result.lyrics.replace('\\n', '<br />');
+                },
                 error => {
-                    this.lyrics = null;
-                    alert(error.message);
+                    this.lyrics = undefined;
+                    this.error = error.message;
                 }
             );
             this.isBusy = false;
